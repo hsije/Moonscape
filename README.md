@@ -1,4 +1,4 @@
-# moonscape
+# Moonscape
 # 🌙 MoonSpace (月空间) - AI 情绪可视化避风港
 
 > **"不打分，不选标签，让情绪在岛屿上生长。"**
