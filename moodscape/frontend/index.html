@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a12">
+  <title>Moodscape · 心境之岛</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <!-- 岛屿是唯一内容，UI 是透镜，不是面板 -->
+  <canvas id="island"></canvas>
+
+  <!-- 漂流瓶：对方景观的薄光学叠加 -->
+  <div id="scape-veil" class="scape-veil"></div>
+
+  <div id="lens" class="lens" aria-live="polite">
+    <!-- 材质 / 订阅 透镜 -->
+    <div id="material-lens" class="corner top-left">
+      <button id="material-btn" class="glass chip" aria-label="景观材质">材质</button>
+      <div id="material-menu" class="glass menu hidden">
+        <button class="material-option selected" data-theme="">原生</button>
+        <button class="material-option" data-theme="cyberpunk">赛博朋克</button>
+        <button class="material-option" data-theme="ghibli">吉卜力</button>
+        <button class="material-option" data-theme="deep-sea-ruins">深海遗迹</button>
+        <div class="menu-sep"></div>
+        <button id="subscribe-btn" class="glass-btn small">升级同伴</button>
+        <div id="entitlements" class="entitlements"></div>
+        <div class="menu-sep"></div>
+        <!-- AI 可被永久不回应，沉默被完整支持 -->
+        <button id="silence-btn" class="material-option silence">保持沉默</button>
+      </div>
+    </div>
+
+    <!-- 社交透镜：静默陪伴。日常态收起，仅社交态升起最少必要控件 -->
+    <div id="social-lens" class="corner right folded">
+      <div id="presence" class="glass presence hidden">
+        <span id="presence-dot" class="presence-dot"></span>
+      </div>
+      <button id="social-toggle" class="glass chip" aria-label="静默陪伴">伴</button>
+      <div id="social-controls" class="social-controls">
+        <button id="bond-btn" class="glass chip" aria-label="双岛：轻触立桥墩，长按回应邀请">连</button>
+        <button id="bridge-state" class="glass chip bridge hidden" aria-label="桥梁状态">桥</button>
+        <button id="bottle-send-btn" class="glass chip" aria-label="投放漂流瓶">瓶</button>
+        <button id="light-btn" class="glass chip hold" aria-label="点亮一盏灯（按住停留）">灯</button>
+        <button id="flower-btn" class="glass chip hold" aria-label="种下一朵花（按住停留）">花</button>
+        <button id="print-btn" class="glass chip" aria-label="封存心境种子并打印纪念树">印</button>
+      </div>
+    </div>
+
+    <!-- 漂流瓶浮层 -->
+    <div id="bottle-layer" class="bottle-layer"></div>
+
+    <!-- 岛缘悬浮玻璃薄膜：输入（文字 / 语音 / 歌曲） -->
+    <div id="input-membrane" class="glass membrane">
+      <button id="mic-btn" class="icon-btn" aria-label="语音输入">音</button>
+      <button id="song-btn" class="icon-btn" aria-label="歌曲输入">曲</button>
+      <input type="file" id="song-file" accept="audio/*" hidden>
+      <textarea id="mood-input" rows="1" placeholder="此刻，心里是什么天气？" spellcheck="false"></textarea>
+      <button id="send-btn" class="glass-btn" aria-label="生成心境之岛">生成</button>
+    </div>
+
+    <!-- AI 观察者：默认沉默，文字缓慢溶解浮现 -->
+    <button id="observer" class="observer hidden" aria-label="AI 观察者">
+      <span id="observer-text"></span>
+    </button>
+
+    <!-- 情绪清理：长按释放 -->
+    <button id="release-btn" class="glass release" aria-label="情绪清理仪式">
+      <span class="release-label">释放</span>
+    </button>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <!-- 本地 three.js：离线/无 CDN 环境也能渲染 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/addons/"
+    }
+  }
+  </script>
+  <script type="module" src="main.js?v=3"></script>
+</body>
+</html>
